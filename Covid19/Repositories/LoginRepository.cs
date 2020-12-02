@@ -9,27 +9,24 @@ namespace Covid19.Repositories
 {
     public class LoginRepository : ILoginRepository
     {
-
-        private PacienteContext context;
-
-        public LoginRepository(PacienteContext _context)
+        Models.Login ILoginRepository.GetLogin(Models.Login login)
         {
-            context = _context; //new GestaoDeProdutoContext();
+            throw new NotImplementedException();
         }
 
-        //public Login GetLogin(Login login)
-        //{
-        //    var users = new List<Login>();
-        //    users.Add(new Login { id = 1, usuario = "h1", senha = "123", role = "administrador" });
-        //    users.Add(new Login { id = 2, usuario = "h2", senha = "456", role = "funcionario" });
-        //    return users.Where(x => x.usuario.ToLower() == login.usuario.ToLower() && x.senha == login.senha).FirstOrDefault();
-
-        //}
-
-        public Login GetLogin(Login login)
+        public class Login : ILoginRepository
         {
-            var resultado = context.logins.Where(l => l.usuario == login.usuario && l.senha == login.senha).FirstOrDefault();
-            return resultado;
+            public Models.Login GetLogin(Models.Login login)
+            {
+                if (login.usuario == "Gabrielle" && login.senha == "123")
+                {
+                    login.id = 1;
+                    login.role = "administrador";
+                    return login;
+                }
+                return null;
+            }
+
         }
     }
 }

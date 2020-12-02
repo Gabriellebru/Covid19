@@ -27,13 +27,16 @@ namespace Covid19.Controllers
             [HttpGet]
             public async Task<IActionResult> Get()
             {
-                return Ok("Litagem de todos os pacientes");
+            var pacientes = _services.ListarTodosPacientes();
+            return Ok(pacientes);
+            
             }
 
             [HttpGet("{id}")]
             public async Task<IActionResult> Get(int id)
             {
-                return Ok("dados do paciente id");
+            var pacientes = _services.ListarTodosPacientes();
+                return Ok(pacientes);
             }
 
             [HttpPost]
@@ -54,6 +57,7 @@ namespace Covid19.Controllers
             [HttpDelete]
             public async Task<IActionResult> Delete(int id)
             {
+
                 return Ok("Paciente deleteado com sucesso");
             }
 

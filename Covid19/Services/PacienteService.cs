@@ -8,49 +8,33 @@ using System.Threading.Tasks;
 
 namespace Covid19.Services
 {
-    public class PacienteService : IPacienteService { 
+    public class PacienteService : IPacienteService {
+        private readonly IPacienteRepository _repository;
+        public PacienteService(
+             IPacienteRepository repository
+         )
+        {
+            _repository = repository;
+        }
 
 
-        private ICategoriaRepository _repository;
-
-    public PacienteService(IPacienteRepository repository)
-    {
-        _repository = repository;// new CategoriaRepository();
-    }
-
-    
         private IList<Paciente> listaPaciente = new List<Paciente>();
 
         public Paciente BuscarPacientePorId(int id)
         {
-            return _repository.BuscarPacientePorId(id);
+            return _repository.buscaPorId(id);
         }
-        public IList<Paciente> BuscarPacienteCidade(string cidade)
-        {
-            return _repository.BuscarPacienteCidade(cidade);
-        }
-             
-        public Paciente BuscarPacienteCPF(string cpf)
-        {
-            return _repository.BuscarPacienteCPF(cpf);
-        }
-
+               
+      
         public void InserirPaciente(Paciente paciente)
         {
-            var validator = new PacienteValidator();
-            var validRes = validator.Validate(paciente);
-            if (validRes.IsValid)
-            {
-                return _repository.InserirCategoria(paciente);
-            }
-              
-            else
-                throw new Exception(validRes.Errors.FirstOrDefault().ToString());
+
+            return _repository.novoPaciente(paciente);
         }
        
         public IList<Paciente> ListarTodosPacientes()
         {
-            return _repository.ListarTodosPacientes();
+            return _repository.buscaTodosPacientes();
         }
         
     }
